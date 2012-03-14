@@ -1,14 +1,14 @@
 package leave;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 public class Employee {
     private int id;
     private String name;
     private String office;
-    private Date dateOfJob;
+    private DateTime dateOfJob;
     private ArrayList<Leave> historyLeaves;
 
 
@@ -21,7 +21,7 @@ public class Employee {
         return true?(employee.id==this.id):false;
     }
 
-    public void setDateOfJob(Date date) {
+    public void setDateOfJob(DateTime date) {
         this.dateOfJob = date;
     }
 
@@ -29,8 +29,8 @@ public class Employee {
         return getCurrentYear()-dateOfJob.getYear();
     }
     private  int getCurrentYear(){
-        Calendar rightNow =Calendar.getInstance();
-        return rightNow.getTime().getYear();
+        DateTime currentDate = new DateTime();
+        return  currentDate.getYear();
     }
 
     public int getRightActuralRateByYear() {
@@ -47,6 +47,6 @@ public class Employee {
     }
 
     public double getRightActuralRateByMonth() {
-        return getRightActuralRateByYear()/Constants.MONTH_IN_A_YEAR;
+        return getRightActuralRateByYear()/(double)Constants.MONTH_IN_A_YEAR;
     }
 }

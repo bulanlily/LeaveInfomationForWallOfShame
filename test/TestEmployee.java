@@ -1,3 +1,4 @@
+import org.joda.time.DateTime;
 import  org.junit.Assert.*;
 import leave.Employee;
 import org.junit.Before;
@@ -5,7 +6,6 @@ import org.junit.Test;
 
 import java.util.Date;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 public class TestEmployee {
@@ -15,7 +15,7 @@ public class TestEmployee {
     public void setUp(){
         employee1 = new Employee(1);
         employee2 = new Employee(1);
-        employee1.setDateOfJob(new Date(1999,2,2));
+        employee1.setDateOfJob(new DateTime(1999,2,2,0,0));
     }
     @Test
     public void shouldEmployeeEquals(){
@@ -28,7 +28,7 @@ public class TestEmployee {
 
     @Test
     public void shouldGetRightActualRateByYear(){
-        assertEquals();
+        assertEquals(25,employee1.getRightActuralRateByYear());
     }
     @Test
     public void shouldGetRightActualRateByMonth(){
