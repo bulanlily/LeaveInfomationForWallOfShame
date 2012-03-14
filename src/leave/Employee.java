@@ -1,27 +1,15 @@
 package leave;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-/**
- * Created by IntelliJ IDEA.
- * User: twer
- * Date: 3/14/12
- * Time: 10:40 AM
- * To change this template use File | Settings | File Templates.
- */
 public class Employee {
     private int id;
     private String name;
     private String office;
     private Date dateOfJob;
-    private int tenner;
     private ArrayList<Leave> historyLeaves;
-    private double accuralRateByMonth;
-    private int accuralRateByYear;
 
 
 
@@ -41,8 +29,24 @@ public class Employee {
         return getCurrentYear()-dateOfJob.getYear();
     }
     private  int getCurrentYear(){
-        Date date = new Date();
-        Calendar rightNow =
-        return date.getYear();
+        Calendar rightNow =Calendar.getInstance();
+        return rightNow.getTime().getYear();
+    }
+
+    public int getRightActuralRateByYear() {
+        if(Constants.FIRST_STEP>=this.getTenner()){
+            return Constants.FIRST_ACTUAL_DAYS_BY_YEAR;
+        }else if(Constants.SECOND_STEP>=this.getTenner()){
+            return  Constants.SECOND_ACTUAL_DAYS_BY_YEAR;
+        }else if(Constants.THIRD_STEP>+this.getTenner()){
+            return Constants.THIRD_ACTUAL_DAYS_BY_YEAR;
+        }else {
+            return Constants.FORTH_ACTUAL_DAYS_BY_YEAR;
+        }
+
+    }
+
+    public double getRightActuralRateByMonth() {
+        return getRightActuralRateByYear()/Constants.MONTH_IN_A_YEAR;
     }
 }

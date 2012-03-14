@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.util.Date;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 public class TestEmployee {
@@ -14,6 +15,7 @@ public class TestEmployee {
     public void setUp(){
         employee1 = new Employee(1);
         employee2 = new Employee(1);
+        employee1.setDateOfJob(new Date(1999,2,2));
     }
     @Test
     public void shouldEmployeeEquals(){
@@ -21,8 +23,16 @@ public class TestEmployee {
     }
     @Test
     public void shouldGetRightTenner(){
-        employee1.setDateOfJob(new Date(1999,2,2));
         assertEquals((2012-1999),employee1.getTenner());
+    }
+
+    @Test
+    public void shouldGetRightActualRateByYear(){
+        assertEquals();
+    }
+    @Test
+    public void shouldGetRightActualRateByMonth(){
+        assertEquals(2.08,employee1.getRightActuralRateByMonth(),0.01);
     }
 
 }
