@@ -5,6 +5,8 @@ import org.joda.time.DateTime;
 import java.util.ArrayList;
 
 public class Employee {
+
+
     private int id;
     private String name;
     private String office;
@@ -12,41 +14,92 @@ public class Employee {
     private ArrayList<Leave> historyLeaves;
 
 
-
-    public Employee(int id) {
+    public Employee(DateTime dateOfJob, int id, String name, String office) {
+        this.dateOfJob = dateOfJob;
         this.id = id;
+        this.name = name;
+        this.office = office;
+        this.historyLeaves = new ArrayList<Leave>();
     }
 
-    public boolean equalsWith(Employee employee){
-        return true?(employee.id==this.id):false;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Employee employee = (Employee) o;
+
+        if (id == employee.id) return true;
+        else return false;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
     }
 
     public void setDateOfJob(DateTime date) {
         this.dateOfJob = date;
     }
 
-    public int getTenner() {
-        return getCurrentYear()-dateOfJob.getYear();
-    }
-    private  int getCurrentYear(){
-        DateTime currentDate = new DateTime();
-        return  currentDate.getYear();
+    public String getName() {
+        return name;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getOffice() {
+        return office;
+    }
+
+    public DateTime getDateOfJob() {
+        return dateOfJob;
+    }
+
+
+    public int getTenner() {
+        return Constants.getCurrentYear() - dateOfJob.getYear();
+    }
+
+    public double getAvailableAnnualLeave() {
+        double usedLeave = 0;
+        for (Leave leave : historyLeaves) {
+            if (leave.isAnnualLeave()) {
+                usedLeave += leave.getHours()/Constants.WORK_TIME_A_DAY;
+            }
+        }
+        double availableLeave = (double)getRightActuralRateByYear() / Constants.getDaysOfTheYear() * Constants.getCurrentDayOfYear() -usedLeave;
+        return  availableLeave;
+    }
+
+
     public int getRightActuralRateByYear() {
-        if(Constants.FIRST_STEP>=this.getTenner()){
+        if (Constants.FIRST_STEP >= this.getTenner()) {
             return Constants.FIRST_ACTUAL_DAYS_BY_YEAR;
-        }else if(Constants.SECOND_STEP>=this.getTenner()){
-            return  Constants.SECOND_ACTUAL_DAYS_BY_YEAR;
-        }else if(Constants.THIRD_STEP>+this.getTenner()){
+        } else if (Constants.SECOND_STEP >= this.getTenner()) {
+            return Constants.SECOND_ACTUAL_DAYS_BY_YEAR;
+        } else if (Constants.THIRD_STEP > +this.getTenner()) {
             return Constants.THIRD_ACTUAL_DAYS_BY_YEAR;
-        }else {
+        } else {
             return Constants.FORTH_ACTUAL_DAYS_BY_YEAR;
         }
 
     }
 
-    public double getRightActuralRateByMonth() {
-        return getRightActuralRateByYear()/(double)Constants.MONTH_IN_A_YEAR;
+    public double getRightActualRateByMonth() {
+        return getRightActuralRateByYear() / (double) Constants.MONTH_A_YEAR;
+    }
+
+    public int addHistoryLeaves(Leave leave) {
+        historyLeaves.add(leave);
+        return historyLeaves.size();
+    }
+
+    public ArrayList<Leave> getHistoryLeaves() {
+        return historyLeaves;
     }
 }

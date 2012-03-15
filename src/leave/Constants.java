@@ -1,5 +1,7 @@
 package leave;
 
+import org.joda.time.DateTime;
+
 public class Constants {
 
 	public static final int FIRST_STEP = 1;
@@ -20,8 +22,22 @@ public class Constants {
     public static final int FORTH_ACTUAL_DAYS_BY_YEAR = 25;
 
 
-    public static final int MONTH_IN_A_YEAR = 12;
+    public static final int MONTH_A_YEAR = 12;
+    public static  final int WORK_TIME_A_DAY = 8;
 
+    public static int getCurrentYear(){
+        DateTime currentDate = new DateTime();
+        return  currentDate.getYear();
+    }
 
+    public static  int getCurrentDayOfYear(){
+        DateTime currentDate = new DateTime();
+        return currentDate.getDayOfYear();
+    }
+
+    public static  int  getDaysOfTheYear(){
+        DateTime currentDate = new DateTime();
+        return  currentDate.year().isLeap()?366:365;
+    }
 
 }

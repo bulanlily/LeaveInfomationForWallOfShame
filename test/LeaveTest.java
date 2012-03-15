@@ -2,7 +2,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestLeave {
+public class LeaveTest {
 
     @Test
     public void shouldGoesRed(){
