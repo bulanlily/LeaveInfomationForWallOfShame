@@ -25,6 +25,10 @@ public class Constants {
     public static final int MONTH_A_YEAR = 12;
     public static  final int WORK_TIME_A_DAY = 8;
 
+    public static final int ITEMS_IN_EMPLOYEE_FILE = 8;
+
+    public static final int ITEMS_IN_TIME_OFF_FILE = 15;
+
     public static int getCurrentYear(){
         DateTime currentDate = new DateTime();
         return  currentDate.getYear();

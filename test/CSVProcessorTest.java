@@ -10,19 +10,26 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class CSVProcessorTest {
+    CSVProcessor csvProcessor;
     String fileAddress;
     ArrayList<String[]> stringsList;
     @Before
     public void setUp(){
-        fileAddress ="excels/2012-02/employeeInfo.csv";
+        csvProcessor = new CSVProcessor();
+        fileAddress ="excels";
         stringsList = new ArrayList<String[]>();
         stringsList.add(new String[]{"1","Beijing","10139","__","Guo","Xiao","Guo,Xiao","1999-07-06"});
         stringsList.add(new String[]{"2","Australia","11192","__","Huang","Liang","Huang,Liang","2005-06-09"});
     }
+
     @Test
-    public void shouldBuildAll() throws IOException {
-        CSVProcessor csvProcessor = new CSVProcessor(fileAddress);
-        assertArrayEquals(stringsList.get(0), csvProcessor.getCSVInfo().get(0));
-        assertArrayEquals(stringsList.get(1),csvProcessor.getCSVInfo().get(1));
+    public void shouldChooseLastestFile() throws IOException {
+        csvProcessor.pickUpLatestFolder();
+        assertArrayEquals(stringsList.get(1),csvProcessor.getEmployeeInfo().get(1));
+    }
+
+    @Test
+    public void shouldGetAllFileListInBasicFolder(){
+        assertEquals("2012-02\n2012-03\n",csvProcessor.listAllFilesInBasicFolder());
     }
 }

@@ -36,7 +36,7 @@ public class EmployeeTest {
     @Test
     public void shouldGetRightAvailableAnnualLeave(){
         employee1.addHistoryLeaves(new Leave(new DateTime(2012, 3, 2, 0, 0), "ANNUAL_LV", "sick", 4));
-        assertEquals((25.0/366*Constants.getCurrentDayOfYear()-0.5),employee1.getAvailableAnnualLeave(),0.01);
+        assertEquals((25.0/366*Constants.getCurrentDayOfYear()-0.5),employee1.getRemainingAnnualLeave(),0.01);
     }
 
     @Test

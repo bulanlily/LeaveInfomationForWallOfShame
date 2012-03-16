@@ -65,7 +65,7 @@ public class Employee {
         return Constants.getCurrentYear() - dateOfJob.getYear();
     }
 
-    public double getAvailableAnnualLeave() {
+    public double getRemainingAnnualLeave() {
         double usedLeave = 0;
         for (Leave leave : historyLeaves) {
             if (leave.isAnnualLeave()) {
@@ -73,7 +73,7 @@ public class Employee {
             }
         }
         double availableLeave = (double)getRightActuralRateByYear() / Constants.getDaysOfTheYear() * Constants.getCurrentDayOfYear() -usedLeave;
-        return  availableLeave;
+        return  Math.round(availableLeave*10.0)/10.0;
     }
 
 

@@ -55,14 +55,6 @@ public class TimeSheetTest {
     }
 
     @Test
-    public void shouldAddLeaveToEmployee() {
-        Employee employee = new Employee(new DateTime(1999, 2, 2, 0, 0), 1, "Lily", "Beijing");
-        timeSheet.addEmployeeToList(employee);
-        Leave leave = new Leave(new DateTime(2012, 3, 3, 0, 0), "", "", 4.0);
-        assertEquals(1, timeSheet.addLeaveToEmployee(leave, 1));
-    }
-
-    @Test
     public void shouldBuildLeaveFromStrings() {
        Leave leave = timeSheet.buildLeaveFromStrings(leaveString1);
        assertEquals(8.00,leave.getHours(),0.01);

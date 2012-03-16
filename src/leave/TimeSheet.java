@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class TimeSheet {
 
-    HashMap<Integer,Employee> employeeHashMap;
+    HashMap<Integer, Employee> employeeHashMap;
 
     public TimeSheet() {
         employeeHashMap = new HashMap<Integer, Employee>();
@@ -16,55 +16,62 @@ public class TimeSheet {
     public Employee buildEmployeeFromStrings(String[] employeeString) {
         DateTime dateTime;
         dateTime = getDateByString(employeeString[7]);
-        Employee employee = new Employee(dateTime,Integer.parseInt(employeeString[2]),employeeString[6],employeeString[1]);
+        Employee employee = new Employee(dateTime, Integer.parseInt(employeeString[2]), employeeString[6], employeeString[1]);
         return employee;
 
     }
 
+    public Employee findEmployeeById(int id) {
+        return employeeHashMap.get(id);
+    }
+
     public boolean addEmployeeToList(Employee employee) {
-        if(employeeHashMap.containsKey(employee.getId())){
-         return false;
-        }else {
-            employeeHashMap.put(employee.getId(),employee);
-            return  true;
+        if (employeeHashMap.containsKey(employee.getId())) {
+            return false;
+        } else {
+            employeeHashMap.put(employee.getId(), employee);
+            return true;
         }
     }
-    public int addAllEmployeeToListByStrings(ArrayList<String[]> list){
-        for (String[] strings:list) {
+
+    public int addAllEmployeeToListByStrings(ArrayList<String[]> list) {
+        for (String[] strings : list) {
             addEmployeeToList(buildEmployeeFromStrings(strings));
         }
         return employeeHashMap.size();
     }
 
 
-    private  DateTime getDateByString(String dateString){
+    private DateTime getDateByString(String dateString) {
         String[] dateStrings = dateString.split("-");
-        return new DateTime(Integer.parseInt(dateStrings[0]),Integer.parseInt(dateStrings[1]),Integer.parseInt(dateStrings[2]),0,0);
+        return new DateTime(Integer.parseInt(dateStrings[0]), Integer.parseInt(dateStrings[1]), Integer.parseInt(dateStrings[2]), 0, 0);
     }
 
-    public int addLeaveToEmployee(Leave leave, int i) {
+    public void addLeaveToEmployee(Leave leave, int i) {
         Employee employee = employeeHashMap.get(i);
-        return employee.addHistoryLeaves(leave);
+        if (employee != null) {
+            employee.addHistoryLeaves(leave);
+        }
     }
-    public void addAllLeaveToListByStrings(ArrayList<String[]> list){
-        for(String[] strings:list){
-            addLeaveToEmployee(buildLeaveFromStrings(strings),Integer.parseInt(strings[11]));
+
+    public void addAllLeaveToListByStrings(ArrayList<String[]> list) {
+        for (String[] strings : list) {
+            addLeaveToEmployee(buildLeaveFromStrings(strings), Integer.parseInt(strings[11]));
         }
     }
 
     public Leave buildLeaveFromStrings(String[] leaveString) {
         DateTime dateTime = getLeaveDateByString(leaveString[6]);
         double hours = Double.parseDouble(leaveString[9]);
-        return new Leave(dateTime,leaveString[5],leaveString[10],hours);
+        return new Leave(dateTime, leaveString[5], leaveString[10], hours);
 
     }
 
 
-
-    private DateTime getLeaveDateByString(String dateString){
+    private DateTime getLeaveDateByString(String dateString) {
         String[] dateStrings = dateString.split("/");
-        return new DateTime(Integer.parseInt("20"+dateStrings[2]),Integer.parseInt(dateStrings[0]),Integer.parseInt(dateStrings[1]),0,0);
+        return new DateTime(Integer.parseInt("20" + dateStrings[2]), Integer.parseInt(dateStrings[0]), Integer.parseInt(dateStrings[1]), 0, 0);
     }
 
-    
+
 }
